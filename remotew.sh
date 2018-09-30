@@ -47,8 +47,28 @@ function getInitialDateFromFile() {
 	echo $(sed -n '2p' ${FILENAME})	
 }
 
-REMOTE_DATE=$(getRemoteDateFromFile)
-INIT_DATE=$(getInitialDateFromFile)
+function getDiffDays() {	
+	echo $(( ($(date +%s) - $(date --date="$1" +%s) )/(60*60*24) ))
+}
+
+function commit() {
+	REMOTE_DATE=$(getRemoteDateFromFile)
+	INIT_DATE=$(getInitialDateFromFile)
+	DIFF_DAYS=$(getDiffDays ${INIT_DATE})
+	printf $(date -d "${REMOTE_DATE}+${DIFF_DAYS} days" +%Y-%m-%d)
+	printf "\n\n\n"
+}
+
+commit
+
+
+
+
+#	printf $(date -d "${REMOTE_DATE}+10 days" +%Y-%m-%d)
+#printf "\n\n${REMOTE_DATE}\n${INIT_DATE} \n\n"
+# echo $(( ($(date --date="20031122" +%s) - $(date --date="20021020" +%s) )/(60*60*24) ))
+	
+
 
 
 TODAY=$(date +%FT%T)
