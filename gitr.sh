@@ -36,10 +36,8 @@ function commit() {
 	INIT_DATE=$(getInitialDateFromFile)
 	DIFF_DAYS=$(getDiffDays ${INIT_DATE})
 	COMMIT_DAY=$(getCommitDay ${REMOTE_DATE} ${DIFF_DAYS})
-	printf "GIT_AUTHOR_DATE='${COMMIT_DAY}' GIT_COMMITTER_DATE='${COMMIT_DAY}' git commit -m 'Your message'\n\n\n"
+	GIT_AUTHOR_DATE=${COMMIT_DAY} GIT_COMMITTER_DATE=${COMMIT_DAY} git commit -m 'Archivo paraignorar archivos'
 }
-
-commit
 
 # __main__
 if [[ -n $1 ]]; then
@@ -50,6 +48,9 @@ if [[ -n $1 ]]; then
 
 		'i' | 'init' )
 			init $2
+			;;					
+		'commit' )
+			commit
 			;;
 		* )
 			printf "No valid argument"
