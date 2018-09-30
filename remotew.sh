@@ -1,8 +1,5 @@
 #!/bin/bash
-echo $1
 #GIT_AUTHOR_DATE='2017-10-01T00:01' GIT_COMMITTER_DATE='2017-10-01T00:01' git commit -m 'Graph Data 2017-10-01T00:01'
-
-TODAY=$(date +%FT%T)
 
 function getYear(){
   echo ${1:0:4}
@@ -28,6 +25,18 @@ function getSecond(){
   echo ${1:17:2}
 }
 
+function help() {
+	printf 	"\t\tGIT REMOTE WORK - gitr v0.0.1\n
+  USAGE: gitr [-h|--help] [i|init] TEXT\n
+  Start working area
+  	init Init date"	
+}
+
+function init() {
+	printf "$1"
+}
+
+TODAY=$(date +%FT%T)
 TODAY_YEAR=$(getYear $TODAY)
 TODAY_MONTH=$(getMonth $TODAY)
 TODAY_DAY=$(getDay $TODAY)
@@ -41,3 +50,22 @@ printf "DAY = ${TODAY_DAY}\n"
 printf "HOUR = ${TODAY_HOUR}\n"
 printf "MINUTE = ${TODAY_MINUTE}\n"
 printf "SECOND = ${TODAY_SECOND}\n"
+
+
+# __main__
+if [[ -n $1 ]]; then
+	case $1 in
+		'-h' | '--help' )
+			help
+			;;
+
+		'i' | 'init' )
+			init $2
+			;;
+		* )
+			printf "No valid argument"
+			;;
+	esac
+else
+	printf "No aguments"
+fi
