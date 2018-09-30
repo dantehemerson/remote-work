@@ -35,7 +35,8 @@ function help() {
 }
 
 function init() {
-	printf "$1" >> ${FILENAME}
+	today=`date +%Y-%m-%d`
+	printf "$1\n${today}" >> ${FILENAME}
 }
 
 TODAY=$(date +%FT%T)
