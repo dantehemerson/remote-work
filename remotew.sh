@@ -51,25 +51,20 @@ function getDiffDays() {
 	echo $(( ($(date +%s) - $(date --date="$1" +%s) )/(60*60*24) ))
 }
 
+function getCommitDay() {
+	# $2 => days to add, H:M:S are of your computer
+	printf "$(date -d "$1+$2 days" +%F)$(date +T%T)"
+}
+
 function commit() {
 	REMOTE_DATE=$(getRemoteDateFromFile)
 	INIT_DATE=$(getInitialDateFromFile)
 	DIFF_DAYS=$(getDiffDays ${INIT_DATE})
-	printf $(date -d "${REMOTE_DATE}+${DIFF_DAYS} days" +%Y-%m-%d)
-	printf "\n\n\n"
+	COMMIT_DAY=$(getCommitDay ${REMOTE_DATE} ${DIFF_DAYS})
+	printf "${COMMIT_DAY}\n\n\n"
 }
 
 commit
-
-
-
-
-#	printf $(date -d "${REMOTE_DATE}+10 days" +%Y-%m-%d)
-#printf "\n\n${REMOTE_DATE}\n${INIT_DATE} \n\n"
-# echo $(( ($(date --date="20031122" +%s) - $(date --date="20021020" +%s) )/(60*60*24) ))
-	
-
-
 
 TODAY=$(date +%FT%T)
 TODAY_YEAR=$(getYear $TODAY)
