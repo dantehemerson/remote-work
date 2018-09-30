@@ -1,8 +1,6 @@
 #!/bin/bash
 #GIT_AUTHOR_DATE='2017-10-01T00:01' GIT_COMMITTER_DATE='2017-10-01T00:01' git commit -m 'Graph Data 2017-10-01T00:01'
 
-FILENAME='gitr.log'
-
 function getYear(){
   echo ${1:0:4}
 }
@@ -34,10 +32,24 @@ function help() {
   	init Init date"	
 }
 
+FILENAME='gitr.log'
+
 function init() {
 	today=`date +%Y-%m-%d`
 	printf "$1\n${today}" >> ${FILENAME}
 }
+
+function getRemoteDateFromFile() {
+	echo $(sed -n '1p' ${FILENAME})
+}
+
+function getInitialDateFromFile() {
+	echo $(sed -n '2p' ${FILENAME})	
+}
+
+REMOTE_DATE=$(getRemoteDateFromFile)
+INIT_DATE=$(getInitialDateFromFile)
+
 
 TODAY=$(date +%FT%T)
 TODAY_YEAR=$(getYear $TODAY)
@@ -72,3 +84,4 @@ if [[ -n $1 ]]; then
 else
 	printf "No aguments"
 fi
+
