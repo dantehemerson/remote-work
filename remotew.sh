@@ -1,6 +1,8 @@
 #!/bin/bash
 #GIT_AUTHOR_DATE='2017-10-01T00:01' GIT_COMMITTER_DATE='2017-10-01T00:01' git commit -m 'Graph Data 2017-10-01T00:01'
 
+FILENAME='gitr.log'
+
 function getYear(){
   echo ${1:0:4}
 }
@@ -33,7 +35,7 @@ function help() {
 }
 
 function init() {
-	printf "$1"
+	printf "$1" >> ${FILENAME}
 }
 
 TODAY=$(date +%FT%T)
