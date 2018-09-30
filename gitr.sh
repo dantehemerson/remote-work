@@ -54,9 +54,9 @@ if [[ -n $1 ]]; then
 			commit $2 "$3"
 			;;
 		* )
-			printf "No valid argument"
+			help
 			;;
 	esac
 else
-	printf "No aguments"
+	help
 fi
