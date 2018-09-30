@@ -36,7 +36,7 @@ function commit() {
 	INIT_DATE=$(getInitialDateFromFile)
 	DIFF_DAYS=$(getDiffDays ${INIT_DATE})
 	COMMIT_DAY=$(getCommitDay ${REMOTE_DATE} ${DIFF_DAYS})
-	GIT_AUTHOR_DATE=${COMMIT_DAY} GIT_COMMITTER_DATE=${COMMIT_DAY} git commit -m 'Archivo paraignorar archivos'
+	GIT_AUTHOR_DATE=${COMMIT_DAY} GIT_COMMITTER_DATE=${COMMIT_DAY} git commit -m "$2"
 }
 
 # __main__
@@ -50,7 +50,8 @@ if [[ -n $1 ]]; then
 			init $2
 			;;					
 		'commit' )
-			commit
+			# 2 => -m , 3 => message
+			commit $2 "$3"
 			;;
 		* )
 			printf "No valid argument"
